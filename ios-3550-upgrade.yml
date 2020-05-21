@@ -1,10 +1,11 @@
 - name: upgrade the IOS on cat 3550 switches
-  hosts: all
+  hosts: "{{ play_limit }}"
   vars:
     # TODO: get the tftp server portion working down below in the tftp section.  Right now it's hard coded.
     tftp_server: 192.168.51.17 
+    new_image: "{{ cat_image }}"
 #    new_image: c3550-ipservicesk9-mz.122-44.SE2.bin # new_image is the ios image file name that should be running
-    new_image: c3550-ipservicesk9-mz.122-44.SE6.bin
+#    new_image: c3550-ipservicesk9-mz.122-44.SE6.bin
     new_image_flash: "flash:/{{ new_image }}" # this builds a variable for below
 
   tasks:
