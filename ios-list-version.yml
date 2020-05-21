@@ -1,5 +1,5 @@
-- name: test gathering facts
-  hosts: lab_equipment
+- name: Show versions of Cat IOS
+  hosts: sw1
 
   tasks:
     - name: print ios firmware currently running
