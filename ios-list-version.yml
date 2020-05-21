@@ -1,5 +1,5 @@
 - name: test gathering facts
-#  hosts: update_lab
+  hosts: lab_equipment
 
   tasks:
     - name: print ios firmware currently running
