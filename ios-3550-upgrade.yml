@@ -1,0 +1,64 @@
+- name: upgrade the IOS on cat 3550 switches
+  hosts: update_lab
+  vars:
+    # TODO: get the tftp server portion working down below in the tftp section.  Right now it's hard coded.
+    tftp_server: 192.168.51.17 
+    new_image: c3550-ipservicesk9-mz.122-44.SE2.bin # new_image is the ios image file name that should be running
+#    new_image: c3550-ipservicesk9-mz.122-44.SE6.bin
+    new_image_flash: "flash:/{{ new_image }}" # this builds a variable for below
+
+  tasks:
+  - name: "run this block if {{ new_image_flash }} != {{ ansible_facts['net_image'] }}"
+    block:
+
+    - name: delete the old IOS image first
+      ignore_errors: True
+      vars:
+        ansible_command_timeout: 30
+      cli_command:
+        command: "delete {{ ansible_facts['net_image'] }}"
+        prompt:
+          - ?
+          - [confirm]
+        answer:
+          - "\r"
+          - "\r"
+
+    - name: tftp the new image
+      vars:
+        ansible_command_timeout: 600
+      cli_command:
+        command: "copy tftp:{{ new_image }} flash:{{ new_image }}"
+        prompt:
+          - Address or name
+          - "Destination filename [{{ new_image }}]?"
+        answer:
+#          - "{{ tftp_server }} \r"
+          - "192.168.51.17\r"
+          - "\r"
+
+    - name: reboot ios device
+      cli_command:
+        command: reload
+        prompt:
+          - Save?
+          - confirm
+        answer:
+         - y
+         - y
+
+#    - name: reset the connection
+#      meta: reset_connection
+
+#    - name: Wait for the network device to reload
+#      wait_for_connection:
+#        delay: 120
+
+#    - name: rerun gather facts
+#      setup:
+
+#    - name: print new version
+#      debug:
+#        msg: "installed version {{ ansible_facts['net_image'] }}"
+
+    when: new_image_flash != ansible_facts['net_image']

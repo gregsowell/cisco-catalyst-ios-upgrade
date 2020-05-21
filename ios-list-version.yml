@@ -1,0 +1,8 @@
+- name: test gathering facts
+  hosts: update_lab
+
+  tasks:
+    - name: print ios firmware currently running
+      debug:
+#        msg: "{{ ansible_facts['net_version'] }}"
+        msg: "{{ ansible_facts['net_image'] }}"
