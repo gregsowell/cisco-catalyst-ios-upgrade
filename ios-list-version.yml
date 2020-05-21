@@ -1,5 +1,5 @@
 - name: Show versions of Cat IOS
-  hosts: lab_equipment
+  hosts: all
 
   tasks:
     - name: print ios firmware currently running
