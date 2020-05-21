@@ -1,5 +1,5 @@
 - name: Show versions of Cat IOS
-  hosts: all
+  hosts: "{{ play_limit }}"
 
   tasks:
     - name: print ios firmware currently running
