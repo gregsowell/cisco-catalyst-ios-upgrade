@@ -38,6 +38,9 @@
           - "192.168.51.17\r"
           - "\r"
 
+    - pause:
+      seconds: 25
+    
     - name: reboot ios device
       cli_command:
         command: reload
