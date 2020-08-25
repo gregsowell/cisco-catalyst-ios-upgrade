@@ -1,5 +1,5 @@
 - name: Show versions of Cat IOS
-  hosts: sw1,sw2,sw3
+  hosts: cat_upgrade
 
   tasks:
     - name: print ios firmware currently running
