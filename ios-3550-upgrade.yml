@@ -1,5 +1,5 @@
 - name: upgrade the IOS on cat 3550 switches
-  hosts: "{{ play_limit }}"
+  hosts: cat_upgrade
   vars:
     # TODO: get the tftp server portion working down below in the tftp section.  Right now it's hard coded.
     tftp_server: 192.168.51.17 
