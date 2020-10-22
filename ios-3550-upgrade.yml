@@ -39,7 +39,7 @@
           - "\r"
 
     - pause:
-        seconds: 25
+        seconds: 45
     
     - name: reboot ios device
       cli_command:
